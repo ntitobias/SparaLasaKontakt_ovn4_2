@@ -19,7 +19,7 @@ namespace SparaLasaKontakt_ovn4_2
 
         private void btnSparaSom_Click(object sender, EventArgs e)
         {
-
+            // Här ska vi göra kod för sparande.
         }
     }
 }
