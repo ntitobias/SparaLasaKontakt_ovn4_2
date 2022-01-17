@@ -41,5 +41,29 @@ namespace SparaLasaKontakt_ovn4_2
                 skrivare.Dispose();
             }
         }
+
+        private void btnÖppna_Click(object sender, EventArgs e)
+        {
+            // Visa dialogruta där man kan ange ett filnamn för öppning
+            DialogResult resultat = dlgÖppnaFil.ShowDialog();
+
+            if (resultat == DialogResult.OK)
+            {
+                //Öppna ström
+                FileStream inStröm = new FileStream(dlgÖppnaFil.FileName, FileMode.Open, FileAccess.Read);
+
+                //Skapa läsare
+                StreamReader läsare = new StreamReader(inStröm);
+
+                //Läs en rad text i taget.
+                tbxFörnamn.Text = läsare.ReadLine();
+                tbxEfternamn.Text = läsare.ReadLine();
+                tbxEpost.Text = läsare.ReadLine();
+                tbxTelefonnummer.Text = läsare.ReadLine();
+
+                //Stäng filen
+                läsare.Dispose();
+            }
+        }
     }
 }

@@ -40,6 +40,7 @@ namespace SparaLasaKontakt_ovn4_2
             this.lblTelefonnummer = new System.Windows.Forms.Label();
             this.btnSparaSom = new System.Windows.Forms.Button();
             this.dlgSparaFil = new System.Windows.Forms.SaveFileDialog();
+            this.dlgÖppnaFil = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // lblFörnamn
@@ -66,6 +67,7 @@ namespace SparaLasaKontakt_ovn4_2
             this.btnÖppna.TabIndex = 2;
             this.btnÖppna.Text = "Öppna";
             this.btnÖppna.UseVisualStyleBackColor = true;
+            this.btnÖppna.Click += new System.EventHandler(this.btnÖppna_Click);
             // 
             // tbxEfternamn
             // 
@@ -160,6 +162,7 @@ namespace SparaLasaKontakt_ovn4_2
         private System.Windows.Forms.Label lblTelefonnummer;
         private System.Windows.Forms.Button btnSparaSom;
         private System.Windows.Forms.SaveFileDialog dlgSparaFil;
+        private System.Windows.Forms.OpenFileDialog dlgÖppnaFil;
     }
 }
 
