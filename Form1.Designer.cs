@@ -39,6 +39,7 @@ namespace SparaLasaKontakt_ovn4_2
             this.tbxTelefonnummer = new System.Windows.Forms.TextBox();
             this.lblTelefonnummer = new System.Windows.Forms.Label();
             this.btnSparaSom = new System.Windows.Forms.Button();
+            this.dlgSparaFil = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // lblFörnamn
@@ -158,6 +159,7 @@ namespace SparaLasaKontakt_ovn4_2
         private System.Windows.Forms.TextBox tbxTelefonnummer;
         private System.Windows.Forms.Label lblTelefonnummer;
         private System.Windows.Forms.Button btnSparaSom;
+        private System.Windows.Forms.SaveFileDialog dlgSparaFil;
     }
 }
 
