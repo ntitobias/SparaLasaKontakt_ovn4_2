@@ -13,6 +13,7 @@ namespace SparaLasaKontakt_ovn4_2
 {
     public partial class frmEnKontakt : Form
     {
+
         public frmEnKontakt()
         {
             InitializeComponent();
@@ -31,11 +32,15 @@ namespace SparaLasaKontakt_ovn4_2
                 //Skapa skrivare
                 StreamWriter skrivare = new StreamWriter(utStröm);
 
-                //Skriv en rad text i taget.
-                skrivare.WriteLine(tbxFörnamn.Text);
-                skrivare.WriteLine(tbxEfternamn.Text);
-                skrivare.WriteLine(tbxEpost.Text);
-                skrivare.WriteLine(tbxTelefonnummer.Text);
+                //Skriv en kontakt i taget
+                foreach (Kontakt k in lbxKontakter.Items)
+                {
+                    //Skriv en rad text i taget.
+                    skrivare.WriteLine(k.Förnamn);
+                    skrivare.WriteLine(k.Efternamn);
+                    skrivare.WriteLine(k.Epost);
+                    skrivare.WriteLine(k.Telefonnr);
+                }
 
                 //Stäng filen
                 skrivare.Dispose();
@@ -49,21 +54,68 @@ namespace SparaLasaKontakt_ovn4_2
 
             if (resultat == DialogResult.OK)
             {
+                //Rensa listboxen
+                lbxKontakter.Items.Clear();
+
                 //Öppna ström
                 FileStream inStröm = new FileStream(dlgÖppnaFil.FileName, FileMode.Open, FileAccess.Read);
 
                 //Skapa läsare
                 StreamReader läsare = new StreamReader(inStröm);
 
-                //Läs en rad text i taget.
-                tbxFörnamn.Text = läsare.ReadLine();
-                tbxEfternamn.Text = läsare.ReadLine();
-                tbxEpost.Text = läsare.ReadLine();
-                tbxTelefonnummer.Text = läsare.ReadLine();
+                //Läs en kontakt i taget.
+                string förnamn = läsare.ReadLine();
+                while (förnamn != null)
+                {
+                    Kontakt k = new Kontakt(förnamn, läsare.ReadLine(), läsare.ReadLine(), läsare.ReadLine());
+                    lbxKontakter.Items.Add(k);
+
+                    //Kolla om det finns en ny kontakt
+                    förnamn = läsare.ReadLine();
+                }
 
                 //Stäng filen
                 läsare.Dispose();
             }
+        }
+
+        private void btnLäggTill_Click(object sender, EventArgs e)
+        {
+            //Skapa kontakt
+            Kontakt k = new Kontakt(tbxFörnamn.Text, tbxEfternamn.Text, tbxEpost.Text, tbxTelefonnummer.Text);
+
+            //Lägg till kontakt i listboxen
+            lbxKontakter.Items.Add(k);
+        }
+
+        private void btnTaBort_Click(object sender, EventArgs e)
+        {
+            // Ta bort den valda kontakten
+            lbxKontakter.Items.RemoveAt(lbxKontakter.SelectedIndex);
+            
+        }
+
+        private void lbxKontakter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lbxKontakter.SelectedItem != null)
+            {
+                // Gör ett objekt av den valda kontakten
+                Kontakt k = lbxKontakter.SelectedItem as Kontakt;
+                //Skriv de olika delarna av kontakten i respektive textbox
+                tbxFörnamn.Text = k.Förnamn;
+                tbxEfternamn.Text = k.Efternamn;
+                tbxEpost.Text = k.Epost;
+                tbxTelefonnummer.Text = k.Telefonnr;
+            }
+            else
+            {
+                //Skriv de olika delarna av kontakten i respektive textbox
+                tbxFörnamn.Text = "";
+                tbxEfternamn.Text = "";
+                tbxEpost.Text = "";
+                tbxTelefonnummer.Text = "";
+            }
+
         }
     }
 }
